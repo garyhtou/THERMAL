@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  folder_url: MyString
+  folder_id: MyString
+  user: one
+  google_drive_channel_id: 
+
+two:
+  folder_url: MyString
+  folder_id: MyString
+  user: two
+  google_drive_channel_id: 
