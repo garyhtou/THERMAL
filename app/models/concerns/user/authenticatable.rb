@@ -22,6 +22,9 @@ class User
           user.first_name = auth.info.first_name
           user.last_name = auth.info.last_name
 
+          user.provider_access_token = auth.credentials.token
+          user.provider_refresh_token = auth.credentials.refresh_token
+
           # TODO: user.image = auth.info.image
         end
 
