@@ -9,6 +9,14 @@ Rails.application.routes.draw do
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
-  # Defines the root path route ("/")
-  # root "posts#index"
+  devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
+
+  devise_scope :user do
+    # Since there's no actual GET sign in page (only a POST that handles Google OAuth), redirect to the home page which
+    # contains a "Sign In" button and serves as the sign in page.
+    get 'sign_in', to: redirect("/", status: 302), as: :new_user_session
+    delete 'sign_out', to: 'devise/sessions#destroy', as: :destroy_user_session
+  end
+
+  root "home#index"
 end

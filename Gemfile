@@ -44,7 +44,7 @@ gem "thruster", require: false
 
 # User authentication
 gem "devise"
-gem "omniauth"
+gem "omniauth-rails_csrf_protection" # https://github.com/cookpad/omniauth-rails_csrf_protection
 gem "omniauth-google-oauth2"
 
 group :development, :test do
