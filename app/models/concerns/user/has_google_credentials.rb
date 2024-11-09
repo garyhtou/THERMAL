@@ -3,12 +3,8 @@ class User
     extend ActiveSupport::Concern
 
     included do
-      with_options if: -> { provider_uid.present? } do |user|
-        user.validates_presence_of :provider_access_token
-        user.validates_presence_of :provider_refresh_token
-      end
+      validates_presence_of :provider_refresh_token, if: -> { provider_uid.present? }
 
-      encrypts :provider_access_token
       encrypts :provider_refresh_token
     end
   end
