@@ -16,6 +16,10 @@ class Importer::GoogleDrive::Folder < ApplicationRecord
   before_validation :extract_drive_file_id, if: :drive_url_changed?
   after_validation :unify_drive_url_and_file_errors
 
+  after_create_commit do
+    # TODO: configure channel webhook and keep renewing it before expiration
+  end
+
   def poll
     files_in_folder = "'#{drive_file_id}' in parents and trashed = false"
 
