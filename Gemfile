@@ -44,6 +44,7 @@ gem "thruster", require: false
 
 # User authentication
 gem "devise"
+gem "omniauth"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
