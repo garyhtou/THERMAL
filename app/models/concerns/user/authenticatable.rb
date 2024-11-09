@@ -6,7 +6,13 @@ class User
       devise :trackable,
              :omniauthable, omniauth_providers: %i[google_oauth2]
 
-      validates :email, presence: true, uniqueness: true
+      validates :email, presence: true, uniqueness: true, format: { with: Devise.email_regexp } # case_sensitive doesn't work with encryption
+      validates :provider_uid, presence: true, uniqueness: { scope: :provider }, if: -> { provider.present? }
+
+      encrypts :email, deterministic: true, downcase: true
+      encrypts :provider_uid, deterministic: true
+      encrypts :current_sign_in_ip, deterministic: true
+      encrypts :last_sign_in_ip, deterministic: true
     end
 
     class_methods do

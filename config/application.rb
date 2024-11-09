@@ -23,5 +23,9 @@ module Thermal
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # Enable unique validations on deterministically-encrypted columns
+    # https://guides.rubyonrails.org/active_record_encryption.html#unique-validations
+    config.active_record.encryption.extend_queries = true
   end
 end
