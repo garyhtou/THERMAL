@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  drive_file_id: MyString
+  name: MyString
+  drive_version: 
+  importer_google_drive_folder: one
+  user: one
+
+two:
+  drive_file_id: MyString
+  name: MyString
+  drive_version: 
+  importer_google_drive_folder: two
+  user: two

@@ -10,9 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_09_095111) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_09_120949) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "importer_google_drive_files", force: :cascade do |t|
+    t.string "drive_file_id", null: false
+    t.string "name", null: false
+    t.bigint "drive_version", null: false
+    t.bigint "importer_google_drive_folder_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["drive_file_id", "importer_google_drive_folder_id"], name: "idx_on_drive_file_id_importer_google_drive_folder_i_2904761520", unique: true
+    t.index ["importer_google_drive_folder_id"], name: "idx_on_importer_google_drive_folder_id_4bee4a19c0"
+    t.index ["user_id"], name: "index_importer_google_drive_files_on_user_id"
+  end
 
   create_table "importer_google_drive_folders", force: :cascade do |t|
     t.string "drive_url", null: false
@@ -44,5 +57,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_09_095111) do
     t.index ["provider", "provider_uid"], name: "index_users_on_provider_and_provider_uid", unique: true
   end
 
+  add_foreign_key "importer_google_drive_files", "importer_google_drive_folders"
+  add_foreign_key "importer_google_drive_files", "users"
   add_foreign_key "importer_google_drive_folders", "users"
 end

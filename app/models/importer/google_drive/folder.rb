@@ -21,20 +21,37 @@ class Importer::GoogleDrive::Folder < ApplicationRecord
   end
 
   def poll
-    files_in_folder = "'#{drive_file_id}' in parents and trashed = false"
-
     files = drive.fetch_all(items: :files) do |page_token|
-      drive.list_files(q: files_in_folder, page_token:)
+      drive.list_files(**drive_query(page_token:))
     end
 
     files.each do |file|
-      # TODO: implement
-      puts file.name
-      # Importer::GoogleDrive::File.from_source(file, sourceable: self)
+      begin
+        record = Importer::GoogleDrive::File.from_source!(file, source: self)
+        puts "Imported #{record.id}: #{record.name}"
+      rescue => e
+        Rails.error.unexpected(e, context: { folder: self.to_gid.to_s, drive_file_id: file.id })
+      end
     end
   end
 
   private
+
+  def drive_query(**additional)
+    {
+      # File belongs to this folder and is not trashed
+      q: "'#{drive_file_id}' in parents and trashed = false",
+
+      # Order by recency (the most recent timestamp from the file's date-time fields
+      order_by: "recency desc",
+
+      # By default, the API only returns `id`, `kind`, `mime_type`, and `name`.
+      # https://developers.google.com/drive/api/guides/fields-parameter
+      # It's very unexpected, but `nextPageToken` needs to be explicitly requested.
+      # https://stackoverflow.com/questions/64287605/drive-list-files-doesnt-have-nextpagetoken-when-fields-is-present
+      fields: "nextPageToken,incompleteSearch,kind,files(id,name,mimeType,version)"
+    }.merge(additional)
+  end
 
   def drive
     @drive ||= Google::Apis::DriveV3::DriveService.new.tap do |drive|
