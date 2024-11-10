@@ -20,9 +20,13 @@ module Importer
       before_validation :set_user_from_source, on: :create
       validate :same_user_as_source
 
-      after_create_commit do
-        # TODO: queue job to texutalize content & create/update Receipt
-      end
+      has_one :receipt, as: :provenance, touch: true
+      after_commit :propagate_to_receipt
+    end
+
+    def propagate_to_receipt
+      create_receipt! if receipt.nil?
+      receipt.analyze_later
     end
 
     def content

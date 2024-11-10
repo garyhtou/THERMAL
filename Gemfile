@@ -43,6 +43,7 @@ gem "thruster", require: false
 gem "image_processing", "~> 1.2"
 gem "aws-sdk-s3", require: false
 gem "rtesseract" # OCR
+gem "ruby-vips" # Convert PDF to image
 
 # User authentication
 gem "devise"
@@ -67,6 +68,8 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+
+  gem "awesome_print" # some really awesome printing!
 end
 
 group :test do
