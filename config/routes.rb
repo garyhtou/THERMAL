@@ -14,8 +14,8 @@ Rails.application.routes.draw do
   devise_scope :user do
     # Since there's no actual GET sign in page (only a POST that handles Google OAuth), redirect to the home page which
     # contains a "Sign In" button and serves as the sign in page.
-    get 'sign_in', to: redirect("/", status: 302), as: :new_user_session
-    delete 'sign_out', to: 'devise/sessions#destroy', as: :destroy_user_session
+    get "sign_in", to: redirect("/", status: 302), as: :new_user_session
+    delete "sign_out", to: "devise/sessions#destroy", as: :destroy_user_session
   end
 
   root "home#index"
