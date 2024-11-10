@@ -40,6 +40,8 @@ class Textualizer
   end
 
   def self.pdf_to_image(file)
+    # TODO: explore Pdftoppm
+    # active_storage/previewer/poppler_pdf_previewer.rb
     image = Vips::Image.pdfload(file.path, n: -1, dpi: 300) # -1 means all pages
     result = Tempfile.create([ "image", ".png" ])
     image.pngsave(result.path)
