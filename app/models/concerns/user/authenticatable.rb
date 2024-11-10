@@ -31,6 +31,5 @@ class User
         # TODO: save provider's oauth2 credentials
       end
     end
-
   end
 end
