@@ -35,6 +35,11 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
+      - name: Install libvips
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends libvips
+
       - name: Scan for security vulnerabilities in JavaScript dependencies
         run: bin/importmap audit
 
