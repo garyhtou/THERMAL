@@ -13,8 +13,8 @@ module Importer
     included do
       # Only one of these two fields should be used.
       if columns_hash["content_text"].nil?
-        # has_one_attached :content_file
-        # validates :content_file, presence: true # TODO: is this same as validate attached?
+        has_one_attached :content_file
+        validates :content_file, presence: true # TODO: is this same as validate attached?
       end
 
       before_validation :set_user_from_source, on: :create

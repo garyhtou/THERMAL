@@ -2,6 +2,7 @@ class Importer::GoogleDrive::Folder < ApplicationRecord
   include Importer::Sourceable
 
   belongs_to :user
+  has_many :files, class_name: "Importer::GoogleDrive::File", foreign_key: :importer_google_drive_folder_id, dependent: :destroy
 
   # `google_drive_channel_id` is a token that **we generate** to uniquely identify the Google Drive channel.
   # https://developers.google.com/drive/api/guides/push#required-properties
@@ -35,6 +36,12 @@ class Importer::GoogleDrive::Folder < ApplicationRecord
     end
   end
 
+  def drive
+    @drive ||= Google::Apis::DriveV3::DriveService.new.tap do |drive|
+      drive.authorization = user.google_credentials
+    end
+  end
+
   private
 
   def drive_query(**additional)
@@ -49,14 +56,8 @@ class Importer::GoogleDrive::Folder < ApplicationRecord
       # https://developers.google.com/drive/api/guides/fields-parameter
       # It's very unexpected, but `nextPageToken` needs to be explicitly requested.
       # https://stackoverflow.com/questions/64287605/drive-list-files-doesnt-have-nextpagetoken-when-fields-is-present
-      fields: "nextPageToken,incompleteSearch,kind,files(id,name,mimeType,version)"
+      fields: "nextPageToken,incompleteSearch,kind,files(id,name,mimeType,md5Checksum)"
     }.merge(additional)
-  end
-
-  def drive
-    @drive ||= Google::Apis::DriveV3::DriveService.new.tap do |drive|
-      drive.authorization = user.google_credentials
-    end
   end
 
   def extract_drive_file_id
