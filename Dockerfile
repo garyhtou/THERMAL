@@ -23,6 +23,7 @@ RUN apt-get update -qq && \
       postgresql-client \
       poppler-utils \
       tesseract-ocr \
+      vim \
     && rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Set production environment
