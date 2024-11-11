@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_10_102509) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_11_224550) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -75,6 +75,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_10_102509) do
     t.datetime "analyzed_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "discarded_at"
+    t.index ["discarded_at"], name: "index_receipts_on_discarded_at"
     t.index ["provenance_type", "provenance_id"], name: "index_receipts_on_provenance"
     t.index ["user_id"], name: "index_receipts_on_user_id"
   end
