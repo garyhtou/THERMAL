@@ -8,6 +8,9 @@ class Receipt < ApplicationRecord
 
   include Receipt::Analyze
 
+  include PgSearch::Model
+  pg_search_scope :search, against: [ :name, :body ]
+
   before_validation :set_user_from_provenance, on: :create
   before_validation :set_name_from_provenance, on: :create
   validate :same_user_as_provenance

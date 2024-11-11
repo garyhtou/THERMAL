@@ -272,6 +272,9 @@ GEM
       ast (~> 2.4.1)
       racc
     pg (1.5.9)
+    pg_search (2.3.7)
+      activerecord (>= 6.1)
+      activesupport (>= 6.1)
     propshaft (1.1.0)
       actionpack (>= 7.0.0)
       activesupport (>= 7.0.0)
@@ -471,6 +474,7 @@ DEPENDENCIES
   omniauth-google-oauth2
   omniauth-rails_csrf_protection
   pg (~> 1.1)
+  pg_search
   propshaft
   puma (>= 5.0)
   rails (~> 8.0.0)
