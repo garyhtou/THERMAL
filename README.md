@@ -6,7 +6,18 @@ A searchable collection of your receipts.
 
 In Production, the following environment variables are required:
 
-- `HOST_URL`: Location where the app is hosted
+- `RAILS_MASTER_KEY`: production rails master key
+- `HOST_URL`: Location where the app is hosted (e.g. `thermal.guide`)
+- Database URLS
+
+  I recommend omitting the database name portion of the connection string so that Rails uses the database name defined
+  in `database.yml` for each database. This means that if you're hosting all of these databases on the same server,
+  these four strings may be identical!
+  - `DATABASE_URL`: Primary database's connection string
+  - `CACHE_DATABASE_URL`: connection string for the Solid Cache database
+  - `QUEUE_DATABASE_URL`: connection string for the Solid Queue database
+  - `CABLE_DATABASE_URL`: connection string for the Solid Cable database
+- `PORT`: depending on your proxy/Nginx config, you may need to set this to configure Rails to run on a specific port.
 
 The following dependencies need to be installed on the machine:
 
