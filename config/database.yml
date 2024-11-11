@@ -87,8 +87,6 @@ production:
   primary: &primary_production
     <<: *default
     database: thermal_production
-    username: thermal
-    password: <%= ENV["THERMAL_DATABASE_PASSWORD"] %>
   cache:
     <<: *primary_production
     database: thermal_production_cache
