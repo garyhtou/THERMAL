@@ -11,7 +11,7 @@ In Production, the following environment variables are required:
 The following dependencies need to be installed on the machine:
 
 - ActiveStorage requirement
-    - ImageMagick for image analysis and transformations
+    - libvips for image analysis and transformations
     - poppler for PDF previews
 - Tesseract for OCR
 

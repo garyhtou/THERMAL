@@ -21,6 +21,8 @@ RUN apt-get update -qq && \
       libjemalloc2 \
       libvips \
       postgresql-client \
+      poppler-utils \
+      tesseract-ocr \
     && rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Set production environment
